@@ -1,20 +1,12 @@
 <script setup>
 import ChatBoxMessage from '@/components/chats/ChatBoxMessage.vue';
 import ChatMessages from '@/components/chats/ChatMessages.vue';
-import { ref } from 'vue';
+import { useChat } from '@/composables/useChat';
 
-const messages = ref([{
-    id: new Date().getTime(),
-    itsMine: true,
-    message: 'Hola mundo'
-},
-{
-    id: new Date().getTime() + 1,
-    itsMine: false,
-    message: 'yes',
-    image: 'https://yesno.wtf/assets/yes/4-c53643ecec77153eefb461e053fb4947.gif'
-}
-]);
+const {messages, onMessage } = useChat()
+
+
+
 </script>
 
 <template>
@@ -79,7 +71,7 @@ const messages = ref([{
 
         <ChatMessages :messages="messages" />
 
-        <ChatBoxMessage></ChatBoxMessage>
+        <ChatBoxMessage @send-message="onMessage"></ChatBoxMessage>
 
     </div>
 </template>

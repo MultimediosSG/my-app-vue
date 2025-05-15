@@ -1,7 +1,27 @@
+<script setup>
+import { ref } from 'vue';
+
+const emit = defineEmits(['sendMessage'])
+
+const message = ref('');
+
+function sendMessage(){
+    console.log(message.value);
+
+    if(!message.value) return;
+
+    emit('sendMessage', message.value)
+
+
+    message.value = ''
+}
+
+</script>
+
 <template>
     <div class="bg-white p-4 flex items-center">
-        <input type="text" placeholder="Type your message..." class="flex-1 border rounded-full px-4 py-2 focus:outline-none">
-        <button class="bg-blue-500 text-white rounded-full p-2 ml-2 hover:bg-blue-600 focus:outline-none">
+        <input v-model="message" @keypress.enter="sendMessage" type="text" placeholder="Type your message..." class="flex-1 border rounded-full px-4 py-2 focus:outline-none">
+        <button @click="sendMessage" class="bg-blue-500 text-white rounded-full p-2 ml-2 hover:bg-blue-600 focus:outline-none">
             <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff">
                 <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                 <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
